@@ -1,4 +1,6 @@
-﻿using TauCode.Cqrs.Queries;
+﻿using NHibernate;
+using System.Linq;
+using TauCode.Cqrs.Queries;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetAllCurrencies

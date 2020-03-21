@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using TauCode.Cqrs.Commands;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.DeleteCurrency;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;

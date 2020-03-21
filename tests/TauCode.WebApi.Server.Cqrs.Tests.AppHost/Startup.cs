@@ -1,3 +1,4 @@
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +19,16 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            var cqrsAssembly = typeof(Startup).Assembly;
+            services.AddControllers(options => options.Filters.Add(new ValidationFilterAttribute(cqrsAssembly)));
         }
+
+        public void ConfigureContainer(ContainerBuilder containerBuilder)
+        {
+            var cqrsAssembly = typeof(Startup).Assembly;
+            containerBuilder.AddCqrs(cqrsAssembly, typeof(int)); // todo 00
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -30,9 +39,6 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
             }
 
             app.UseRouting();
-
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
