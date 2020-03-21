@@ -49,7 +49,7 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.AppControllers.Currencies.Cre
             var queryResult = query.GetResult();
             var url = this.Url.Action("GetCurrency", "GetCurrency", new { id });
 
-            return this.CreatedOk(id.ToString(), url, queryResult);
+            return this.Created(url, queryResult);
         }
     }
 }

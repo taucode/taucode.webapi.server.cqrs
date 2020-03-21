@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using TauCode.Cqrs.Commands;
 using TauCode.Cqrs.Queries;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Exceptions;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetCurrency;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.UpdateCurrency;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
@@ -35,8 +36,8 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.AppControllers.Currencies.Upd
             StatusCodes.Status404NotFound,
             "Currency not found.",
             Type = typeof(ErrorDto))]
-        [Route("api/currencies/{id}")]
         [HttpPut]
+        [Route("api/currencies/{id}")]
         public IActionResult UpdateCurrency([FromRoute] CurrencyId id, UpdateCurrencyCommand command)
         {
             command.Id = id;

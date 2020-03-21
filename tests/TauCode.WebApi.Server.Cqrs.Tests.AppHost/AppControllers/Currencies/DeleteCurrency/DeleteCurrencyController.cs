@@ -20,11 +20,10 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.AppControllers.Currencies.Del
 
         [SwaggerOperation("Delete currency", "Deletes a currency.", Tags = new[] { "Currencies" })]
         [SwaggerResponse(StatusCodes.Status204NoContent, "Currency was deleted.")]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Currency was not found.")]
-        [SwaggerResponse(StatusCodes.Status409Conflict, "Currency is in use.")]
-        [Route("api/currencies/{id}")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Currency not found.", Type = typeof(ErrorDto))]
         [HttpDelete]
-        public IActionResult DeleteCurrency([FromRoute]CurrencyId id)
+        [Route("api/currencies/{id}")]
+        public IActionResult DeleteCurrency([FromRoute] CurrencyId id)
         {
             var command = new DeleteCurrencyCommand
             {
@@ -35,15 +34,11 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.AppControllers.Currencies.Del
             {
                 _commandDispatcher.Dispatch(command);
 
-                return this.DeletedOk(id.ToString());
+                return this.DeletedNoContent(id.ToString());
             }
             catch (CurrencyNotFoundException ex)
             {
                 return this.NotFoundError(ex);
-            }
-            catch (CurrencyIsInUseException e)
-            {
-                return this.ConflictError(e);
             }
         }
     }

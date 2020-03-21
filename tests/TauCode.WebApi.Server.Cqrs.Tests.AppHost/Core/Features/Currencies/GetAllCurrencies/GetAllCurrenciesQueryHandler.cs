@@ -1,5 +1,7 @@
 ﻿using NHibernate;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using TauCode.Cqrs.Queries;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
@@ -33,6 +35,12 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetA
                     .ToList(),
             };
             query.SetResult(queryResult);
+        }
+
+        public Task ExecuteAsync(GetAllCurrenciesQuery query, CancellationToken cancellationToken = default)
+        {
+            this.Execute(query);
+            return Task.CompletedTask;
         }
     }
 }

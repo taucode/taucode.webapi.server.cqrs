@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.Persistence.Repositories

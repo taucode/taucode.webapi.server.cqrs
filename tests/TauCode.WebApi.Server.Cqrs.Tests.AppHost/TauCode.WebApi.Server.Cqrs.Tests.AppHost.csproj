@@ -10,7 +10,7 @@
     <PackageReference Include="Inflector.NetStandard" Version="1.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.2.0" />
-    <PackageReference Include="TauCode.Db" Version="1.0.0-dev-2020-03-15-21-40" />
+    <PackageReference Include="TauCode.Db.FluentMigrations" Version="1.0.0-dev-2020-03-16-19-57" />
     <PackageReference Include="TauCode.Domain.NHibernate" Version="1.0.0-dev-2020-03-16-20-09" />
   </ItemGroup>
 

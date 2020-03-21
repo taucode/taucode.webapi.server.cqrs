@@ -13,6 +13,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="TauCode.Db.Testing" Version="1.0.0-dev-2020-01-27-11-25" />
     <PackageReference Include="TauCode.Infrastructure" Version="1.0.0-dev-2020-03-16-23-34" />
   </ItemGroup>
 

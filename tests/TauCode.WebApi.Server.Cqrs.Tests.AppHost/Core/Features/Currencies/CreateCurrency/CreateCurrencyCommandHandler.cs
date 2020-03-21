@@ -1,4 +1,7 @@
-﻿using TauCode.Cqrs.Commands;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using TauCode.Cqrs.Commands;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Exceptions;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.CreateCurrency
@@ -23,6 +26,12 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.Crea
             var currency = new Currency(command.Code, command.Name);
             _currencyRepository.Save(currency);
             command.SetResult(currency.Id);
+        }
+
+        public Task ExecuteAsync(CreateCurrencyCommand command, CancellationToken cancellationToken = default)
+        {
+            this.Execute(command);
+            return Task.CompletedTask;
         }
     }
 }

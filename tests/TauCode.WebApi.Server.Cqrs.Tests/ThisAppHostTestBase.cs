@@ -1,19 +1,15 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Net.Http;
-using System.Reflection;
+using TauCode.Db.Testing;
 using TauCode.Extensions;
 using TauCode.Infrastructure.Time;
-using TauCode.WebApi.Server.Cqrs.Tests.AppHost.DbMigrations;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests
 {
-    [TestFixture]
-    public abstract class ThisAppHostTestBase
+    public abstract class AppHostTest : DbTestBase
     {
         protected Dictionary<string, Currency> CurrenciesByCode;
         protected Dictionary<CurrencyId, Currency> CurrenciesById;
@@ -54,41 +50,41 @@ namespace TauCode.WebApi.Server.Cqrs.Tests
             this.DeserializeDbJson(json);
         }
 
-        protected override HttpClient CreateClient()
-        {
-            return this.Factory
-                .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot(@"tests\IntegrationTests"))
-                .CreateClient();
-        }
+        //protected override HttpClient CreateClient()
+        //{
+        //    return this.Factory
+        //        .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot(@"tests\IntegrationTests"))
+        //        .CreateClient();
+        //}
 
-        protected override TestServer GetTestServer()
-        {
-            return this.Factory.Factories.Single().Server;
-        }
+        //protected override TestServer GetTestServer()
+        //{
+        //    return this.Factory.Factories.Single().Server;
+        //}
 
-        protected override Assembly GetMigrationAssembly()
-        {
-            return typeof(M0_Baseline).Assembly;
-        }
+        //protected override Assembly GetMigrationAssembly()
+        //{
+        //    return typeof(M0_Baseline).Assembly;
+        //}
 
-        protected override TargetDbType GetTargetDbType()
-        {
-            return TargetDbType.SqlServer;
-        }
+        //protected override TargetDbType GetTargetDbType()
+        //{
+        //    return TargetDbType.SqlServer;
+        //}
 
-        protected override string GetConnectionString()
-        {
-            return IntegrationTestHelper.DefaultConnectionString;
-        }
+        //protected override string GetConnectionString()
+        //{
+        //    return IntegrationTestHelper.DefaultConnectionString;
+        //}
 
-        protected override IDbConnection CreateDbConnection(string connectionString)
-        {
-            return new SqlConnection(connectionString);
-        }
+        //protected override IDbConnection CreateDbConnection(string connectionString)
+        //{
+        //    return new SqlConnection(connectionString);
+        //}
 
-        protected override WebApplicationFactory<TestStartup> CreateFactory()
-        {
-            return new TestFactory();
-        }
+        //protected override WebApplicationFactory<TestStartup> CreateFactory()
+        //{
+        //    return new TestFactory();
+        //}
     }
 }
