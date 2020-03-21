@@ -18,6 +18,11 @@ namespace TauCode.WebApi.Server.Cqrs
             Assembly cqrsAssembly,
             Type commandHandlerDecoratorType)
         {
+            if (containerBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(containerBuilder));
+            }
+
             if (cqrsAssembly == null)
             {
                 throw new ArgumentNullException(nameof(cqrsAssembly));
