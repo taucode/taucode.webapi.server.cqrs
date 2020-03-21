@@ -1,54 +1,80 @@
-﻿using NUnit.Framework;
+﻿using NHibernate;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data.SQLite;
+using System.Net.Http;
+using TauCode.Db;
+using TauCode.Db.FluentMigrations;
 using TauCode.Db.Testing;
-using TauCode.Extensions;
-using TauCode.Infrastructure.Time;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.DbMigrations;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests
 {
+    [TestFixture]
     public abstract class AppHostTest : DbTestBase
     {
         protected Dictionary<string, Currency> CurrenciesByCode;
         protected Dictionary<CurrencyId, Currency> CurrenciesById;
 
+        protected HttpClient HttpClient => throw new NotImplementedException();
+
+        protected ISession SetupSession => throw new NotImplementedException();
+        protected ISession AssertSession => throw new NotImplementedException();
+
         [OneTimeSetUp]
         public void OneTimeSetUpBase()
         {
-            this.OneTimeSetUpBaseImpl();
+            this.OneTimeSetUpImpl();
         }
 
-        protected virtual void OneTimeSetUpBaseImpl()
+        protected override void OneTimeSetUpImpl()
         {
-            this.ScriptBuilder.CurrentOpeningIdentifierDelimiter = '[';
-            this.Cruder.ScriptBuilder.CurrentOpeningIdentifierDelimiter = '[';
+            base.OneTimeSetUpImpl();
+            ((SQLiteConnection) this.Connection).BoostSQLiteInsertions();
+
+            var migrator = new FluentDbMigrator(
+                this.GetDbProviderName(),
+                this.GetConnectionString(),
+                typeof(M0_Baseline).Assembly);
+
+            migrator.Migrate();
         }
 
         [SetUp]
         public void SetUpBase()
         {
-            this.SetUpBaseImpl();
+            throw new NotImplementedException();
+            //this.SetUpBaseImpl();
 
-            TimeProvider.Override(new DateTime(2019, 3, 27, 19, 10, 20));
+            //TimeProvider.Override(new DateTime(2019, 3, 27, 19, 10, 20));
 
-            this.CurrenciesByCode = this.SetupSession
-                .Query<Currency>()
-                .ToList()
-                .ToDictionary(x => x.Code, x => x);
+            //this.CurrenciesByCode = this.SetupSession
+            //    .Query<Currency>()
+            //    .ToList()
+            //    .ToDictionary(x => x.Code, x => x);
 
-            this.CurrenciesById = CurrenciesByCode.ToDictionary(x => x.Value.Id, x => x.Value);
+            //this.CurrenciesById = CurrenciesByCode.ToDictionary(x => x.Value.Id, x => x.Value);
         }
 
         protected virtual void SetUpBaseImpl()
         {
-            this.PurgeDb();
-            this.Migrate();
+            throw new NotImplementedException();
 
-            var json = this.GetType().Assembly.GetResourceText("testdb.json", true);
-            this.DeserializeDbJson(json);
+            //this.PurgeDb();
+            //this.Migrate();
+
+            //var json = this.GetType().Assembly.GetResourceText("testdb.json", true);
+            //this.DeserializeDbJson(json);
         }
+
+        protected override string GetConnectionString()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string GetDbProviderName() => DbProviderNames.SQLite;
 
         //protected override HttpClient CreateClient()
         //{

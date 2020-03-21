@@ -1,6 +1,7 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System.Globalization;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
 {
@@ -8,6 +9,7 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
     {
         public static void Main(string[] args)
         {
+            Inflector.Inflector.SetDefaultCultureFunc = () => new CultureInfo("en-US");
             CreateHostBuilder(args).Build().Run();
         }
 

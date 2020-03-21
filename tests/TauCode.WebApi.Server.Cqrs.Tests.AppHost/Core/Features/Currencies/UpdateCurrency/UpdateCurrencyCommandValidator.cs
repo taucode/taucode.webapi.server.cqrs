@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
+using System.Collections.Generic;
+using TauCode.Extensions;
 using TauCode.Validation;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 

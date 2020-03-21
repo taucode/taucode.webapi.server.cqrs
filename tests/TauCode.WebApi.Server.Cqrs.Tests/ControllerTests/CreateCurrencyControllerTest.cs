@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Exceptions;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.CreateCurrency;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetCurrency;
@@ -18,16 +20,12 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 
             // Act
             var response = this.HttpClient.PostAsJsonAsync($"api/currencies", command).Result;
-            var createResultDto = response.ReadAs<CreateResultDto<GetCurrencyQueryResult>>();
-            var queryResult = createResultDto.Content;
+            var queryResult = response.ReadAs<GetCurrencyQueryResult>();
             var id = queryResult.Id;
 
             // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(response.Headers.GetValues("X-Payload-Type").Single(), Is.EqualTo("CreateResult"));
-
-            Assert.That(createResultDto.InstanceId, Is.EqualTo(id.ToString()));
-            Assert.That(createResultDto.Url, Is.EqualTo($"/api/currencies/by-prop?id={id}"));
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+            Assert.That(response.Headers.Location.ToString(), Is.EqualTo("wat"));
 
             Assert.That(queryResult.Code, Is.EqualTo(command.Code));
             Assert.That(queryResult.Name, Is.EqualTo(command.Name));

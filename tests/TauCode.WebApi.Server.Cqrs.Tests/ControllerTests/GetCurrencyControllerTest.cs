@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetCurrency;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies.Exceptions;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
@@ -24,11 +24,12 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 
-            var currency = response.ReadAs<GetCurrencyQueryResult>();
+            throw new NotImplementedException();
+            //var currency = response.ReadAs<GetCurrencyQueryResult>();
 
-            Assert.That(currency.Id, Is.EqualTo(IntegrationTestHelper.UsdId));
-            Assert.That(currency.Code, Is.EqualTo("USD"));
-            Assert.That(currency.Name, Is.EqualTo("United States dollar"));
+            //Assert.That(currency.Id, Is.EqualTo(IntegrationTestHelper.UsdId));
+            //Assert.That(currency.Code, Is.EqualTo("USD"));
+            //Assert.That(currency.Name, Is.EqualTo("United States dollar"));
         }
 
         [Test]

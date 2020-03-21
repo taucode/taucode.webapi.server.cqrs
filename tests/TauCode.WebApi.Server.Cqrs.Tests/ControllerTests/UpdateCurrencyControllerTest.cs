@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Net;
-using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Exceptions;
-using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetCurrency;
+using System.Net.Http;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.UpdateCurrency;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies.Exceptions;
@@ -14,27 +14,28 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
         [Test]
         public void UpdateCurrency_ValidRequest_UpdatesCurrencyAndReturnsOkResultWithUpdatedCurrency()
         {
-            // Arrange
-            var id = IntegrationTestHelper.PlnId;
-            var command = this.CreateCommand();
+            throw new NotImplementedException();
+            //// Arrange
+            //var id = IntegrationTestHelper.PlnId;
+            //var command = this.CreateCommand();
 
-            // Act
-            var response = this.HttpClient.PutAsJsonAsync($"api/currencies/{id}", command).Result;
-            var updateResultDto = response.ReadAs<UpdateResultDto<GetCurrencyQueryResult>>();
-            var queryResult = updateResultDto.Content;
+            //// Act
+            //var response = this.HttpClient.PutAsJsonAsync($"api/currencies/{id}", command).Result;
+            //var updateResultDto = response.ReadAs<UpdateResultDto<GetCurrencyQueryResult>>();
+            //var queryResult = updateResultDto.Content;
 
-            // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(updateResultDto.InstanceId, Is.EqualTo(id.ToString()));
+            //// Assert
+            //Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            //Assert.That(updateResultDto.InstanceId, Is.EqualTo(id.ToString()));
 
-            Assert.That(queryResult.Id, Is.EqualTo(id));
-            Assert.That(queryResult.Code, Is.EqualTo("ZLT"));
-            Assert.That(queryResult.Name, Is.EqualTo("Злотуш"));
+            //Assert.That(queryResult.Id, Is.EqualTo(id));
+            //Assert.That(queryResult.Code, Is.EqualTo("ZLT"));
+            //Assert.That(queryResult.Name, Is.EqualTo("Злотуш"));
 
-            var updatedCurrency = this.AssertSession.Query<Currency>().Single(x => x.Id == id);
+            //var updatedCurrency = this.AssertSession.Query<Currency>().Single(x => x.Id == id);
 
-            Assert.That(updatedCurrency.Code, Is.EqualTo("ZLT"));
-            Assert.That(updatedCurrency.Name, Is.EqualTo("Злотуш"));
+            //Assert.That(updatedCurrency.Code, Is.EqualTo("ZLT"));
+            //Assert.That(updatedCurrency.Name, Is.EqualTo("Злотуш"));
         }
 
         [Test]
@@ -61,52 +62,54 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
         [Test]
         public void UpdateCurrency_CodeAlreadyExists_ReturnsBusinessLogicErrorResponse()
         {
-            // Arrange
-            var id = IntegrationTestHelper.NokId;
-            var command = this.CreateCommand();
-            command.Code = "PLN";
+            throw new NotImplementedException();
+            //// Arrange
+            //var id = IntegrationTestHelper.NokId;
+            //var command = this.CreateCommand();
+            //command.Code = "PLN";
 
-            // Act
-            var response = this.HttpClient.PutAsJsonAsync($"api/currencies/{id}", command).Result;
+            //// Act
+            //var response = this.HttpClient.PutAsJsonAsync($"api/currencies/{id}", command).Result;
 
-            // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Conflict));
-            Assert.That(response.Headers.GetValues("X-Payload-Type").Single(), Is.EqualTo("Error"));
+            //// Assert
+            //Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Conflict));
+            //Assert.That(response.Headers.GetValues("X-Payload-Type").Single(), Is.EqualTo("Error"));
 
-            var error = response.ReadAsError();
+            //var error = response.ReadAsError();
 
-            Assert.That(error.Code, Is.EqualTo(typeof(CodeAlreadyExistsException).FullName));
-            Assert.That(error.Message, Is.EqualTo("Code already exists."));
+            //Assert.That(error.Code, Is.EqualTo(typeof(CodeAlreadyExistsException).FullName));
+            //Assert.That(error.Message, Is.EqualTo("Code already exists."));
         }
 
         [Test]
         public void UpdateCurrency_CodeAlreadyExistsButSameCurrency_UpdatesCurrencyAndReturnsOkResultWithUpdatedCurrency()
         {
-            // Arrange
-            var id = IntegrationTestHelper.PlnId;
-            var command = new UpdateCurrencyCommand
-            {
-                Code = "PLN", // keep PLN
-                Name = "Duzhe zlotiy",
-            };
+            throw new NotImplementedException();
+            //// Arrange
+            //var id = IntegrationTestHelper.PlnId;
+            //var command = new UpdateCurrencyCommand
+            //{
+            //    Code = "PLN", // keep PLN
+            //    Name = "Duzhe zlotiy",
+            //};
 
-            // Act
-            var response = this.HttpClient.PutAsJsonAsync($"api/currencies/{id}", command).Result;
-            var updateResultDto = response.ReadAs<UpdateResultDto<GetCurrencyQueryResult>>();
-            var queryResult = updateResultDto.Content;
+            //// Act
+            //var response = this.HttpClient.PutAsJsonAsync($"api/currencies/{id}", command).Result;
+            //var updateResultDto = response.ReadAs<UpdateResultDto<GetCurrencyQueryResult>>();
+            //var queryResult = updateResultDto.Content;
 
-            // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(updateResultDto.InstanceId, Is.EqualTo(id.ToString()));
+            //// Assert
+            //Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            //Assert.That(updateResultDto.InstanceId, Is.EqualTo(id.ToString()));
 
-            Assert.That(queryResult.Id, Is.EqualTo(id));
-            Assert.That(queryResult.Code, Is.EqualTo("PLN"));
-            Assert.That(queryResult.Name, Is.EqualTo("Duzhe zlotiy"));
+            //Assert.That(queryResult.Id, Is.EqualTo(id));
+            //Assert.That(queryResult.Code, Is.EqualTo("PLN"));
+            //Assert.That(queryResult.Name, Is.EqualTo("Duzhe zlotiy"));
 
-            var updatedCurrency = this.AssertSession.Query<Currency>().Single(x => x.Id == id);
+            //var updatedCurrency = this.AssertSession.Query<Currency>().Single(x => x.Id == id);
 
-            Assert.That(updatedCurrency.Code, Is.EqualTo("PLN"));
-            Assert.That(updatedCurrency.Name, Is.EqualTo("Duzhe zlotiy"));
+            //Assert.That(updatedCurrency.Code, Is.EqualTo("PLN"));
+            //Assert.That(updatedCurrency.Name, Is.EqualTo("Duzhe zlotiy"));
         }
 
         [Test]

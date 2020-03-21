@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Net;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies.Exceptions;
@@ -26,18 +27,19 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
             var response = this.HttpClient.DeleteAsync($"api/currencies/{id}").Result;
 
             // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            throw new NotImplementedException();
+            //Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 
-            var deleteResult = response.ReadAs<DeleteResultDto>();
-            
-            Assert.That(deleteResult.InstanceId, Is.EqualTo(id.ToString()));
+            //var deleteResult = response.ReadAs<DeleteResultDto>();
 
-            
-            var deletedCurrency = this.AssertSession
-                .Query<Currency>()
-                .SingleOrDefault(x => x.Id == id);
+            //Assert.That(deleteResult.InstanceId, Is.EqualTo(id.ToString()));
 
-            Assert.That(deletedCurrency, Is.Null);
+
+            //var deletedCurrency = this.AssertSession
+            //    .Query<Currency>()
+            //    .SingleOrDefault(x => x.Id == id);
+
+            //Assert.That(deletedCurrency, Is.Null);
         }
 
         [Test]
@@ -54,25 +56,6 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
             var error = response.ReadAsError();
             Assert.That(error.Code, Is.EqualTo(typeof(CurrencyNotFoundException).FullName));
             Assert.That(error.Message, Is.EqualTo("Currency not found."));
-        }
-
-        [Test]
-        public void Delete_IsInUse_ReturnsBusinessLogicErrorResult()
-        {
-            // Arrange
-            var usedCurrencyId = IntegrationTestHelper.UsdId;
-
-            // Act
-            var response = this.HttpClient.DeleteAsync($"api/currencies/{usedCurrencyId}").Result;
-
-            // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Conflict));
-            Assert.That(response.Headers.GetValues("X-Payload-Type").Single(), Is.EqualTo("Error"));
-
-            var error = response.ReadAsError();
-
-            Assert.That(error.Code, Is.EqualTo(typeof(CurrencyIsInUseException).FullName));
-            Assert.That(error.Message, Is.EqualTo("Currency is in use."));
         }
     }
 }

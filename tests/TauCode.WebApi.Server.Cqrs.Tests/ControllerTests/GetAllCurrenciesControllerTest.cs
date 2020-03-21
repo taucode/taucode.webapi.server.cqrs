@@ -1,5 +1,8 @@
 ﻿using NUnit.Framework;
+using System.Linq;
 using System.Net;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetAllCurrencies;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
