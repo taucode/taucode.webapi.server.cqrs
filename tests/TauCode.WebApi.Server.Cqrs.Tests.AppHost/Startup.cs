@@ -6,10 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Data.SQLite;
 using TauCode.Cqrs.NHibernate;
 using TauCode.Db;
 using TauCode.Db.FluentMigrations;
 using TauCode.Domain.NHibernate.Types;
+using TauCode.Extensions;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.DbMigrations;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
@@ -59,6 +61,24 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
                 typeof(M0_Baseline).Assembly);
             migrator.Migrate();
 
+            using (var connection = new SQLiteConnection(this.SQLiteTestConfigurationBuilder.ConnectionString))
+            {
+                connection.Open();
+                connection.BoostSQLiteInsertions();
+
+                // todo: without following table drop, deserialization won't work due to VersionInfo table. consider adding filtering predicate to 'DeserializeDbData'. comment GUID: 9ed2372e-f5f0-4a03-8a9f-5deb2ff464a4 (see dbdata.json)
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "DROP TABLE VersionInfo";
+                    command.ExecuteNonQuery();
+                }
+
+                var json = typeof(Startup).Assembly.GetResourceText(".dbdata.json", true);
+
+                var dbSerializer = DbUtils.GetUtilityFactory(DbProviderNames.SQLite).CreateDbSerializer(connection);
+                dbSerializer.DeserializeDbData(json);
+            }
+
             containerBuilder
                 .AddCqrs(cqrsAssembly, typeof(TransactionalCommandHandlerDecorator<>))
                 .AddNHibernate(
@@ -71,8 +91,13 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
                 .Where(t => t.FullName.EndsWith("Repository"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+
+            containerBuilder
+                .RegisterInstance(this)
+                .As<IAutofacStartup>()
+                .SingleInstance();
         }
-        
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -85,7 +110,6 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
 
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Demo Server RESTful Service"); });
-
 
             app.UseRouting();
             app.UseEndpoints(endpoints =>

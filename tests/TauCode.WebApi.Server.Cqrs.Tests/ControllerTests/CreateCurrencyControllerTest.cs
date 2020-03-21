@@ -25,7 +25,9 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
-            Assert.That(response.Headers.Location.ToString(), Is.EqualTo("wat"));
+            Assert.That(
+                response.Headers.Location.ToString(),
+                Is.EqualTo($"/api/currencies/by-prop?id={id}"));
 
             Assert.That(queryResult.Code, Is.EqualTo(command.Code));
             Assert.That(queryResult.Name, Is.EqualTo(command.Name));

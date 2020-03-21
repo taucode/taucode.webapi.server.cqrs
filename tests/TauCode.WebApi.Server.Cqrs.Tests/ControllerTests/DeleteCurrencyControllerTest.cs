@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
+using System.Linq;
 using System.Net;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies.Exceptions;
@@ -27,19 +27,16 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
             var response = this.HttpClient.DeleteAsync($"api/currencies/{id}").Result;
 
             // Assert
-            throw new NotImplementedException();
-            //Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
 
-            //var deleteResult = response.ReadAs<DeleteResultDto>();
+            var instanceId = response.Headers.GetValues("X-Deleted-Instance-Id").Single();
+            Assert.That(instanceId, Is.EqualTo(id.ToString()));
 
-            //Assert.That(deleteResult.InstanceId, Is.EqualTo(id.ToString()));
+            var deletedCurrency = this.AssertSession
+                .Query<Currency>()
+                .SingleOrDefault(x => x.Id == id);
 
-
-            //var deletedCurrency = this.AssertSession
-            //    .Query<Currency>()
-            //    .SingleOrDefault(x => x.Id == id);
-
-            //Assert.That(deletedCurrency, Is.Null);
+            Assert.That(deletedCurrency, Is.Null);
         }
 
         [Test]
