@@ -1,10 +1,10 @@
-﻿using System.Net;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.Net;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class UpdateCurrencyControllerTest : ThisAppHostTestBase
+    public class UpdateCurrencyControllerTest : AppHostTest
     {
         [Test]
         public void UpdateCurrency_ValidRequest_UpdatesCurrencyAndReturnsOkResultWithUpdatedCurrency()

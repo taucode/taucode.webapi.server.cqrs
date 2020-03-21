@@ -1,10 +1,10 @@
-﻿using System.Net;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.Net;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class DeleteCurrencyControllerTest : ThisAppHostTestBase
+    public class DeleteCurrencyControllerTest : AppHostTest
     {
         [Test]
         public void Delete_ExistingId_DeletesAndReturnsNoContentResultWithId()

@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using NUnit.Framework;
+using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using NUnit.Framework;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class GetCurrencyControllerTest : ThisAppHostTestBase
+    public class GetCurrencyControllerTest : AppHostTest
     {
         [Test]
         [TestCase("code", "USD", Description = "Get by code")]

@@ -1,10 +1,10 @@
-﻿using System.Net;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.Net;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class CreateCurrencyControllerTest : ThisAppHostTestBase
+    public class CreateCurrencyControllerTest : AppHostTest
     {
         [Test]
         public void CreateCurrency_ValidRequest_CreatesCurrencyAndReturnsCreatedResultWithCreatedCurrency()

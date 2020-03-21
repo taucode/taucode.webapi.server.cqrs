@@ -1,10 +1,10 @@
-﻿using System.Net;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.Net;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class GetAllCurrenciesControllerTest : ThisAppHostTestBase
+    public class GetAllCurrenciesControllerTest : AppHostTest
     {
         [Test]
         public void GetAllCurrencies_NoArguments_ReturnsAllCurrencies()
