@@ -1,5 +1,9 @@
 ﻿using NUnit.Framework;
 using System.Net;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Exceptions;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.CreateCurrency;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetCurrency;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {

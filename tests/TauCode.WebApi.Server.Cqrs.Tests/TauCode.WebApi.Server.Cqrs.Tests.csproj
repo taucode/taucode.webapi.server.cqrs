@@ -16,4 +16,8 @@
     <PackageReference Include="TauCode.Infrastructure" Version="1.0.0-dev-2020-03-16-23-34" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TauCode.WebApi.Server.Cqrs.Tests.AppHost\TauCode.WebApi.Server.Cqrs.Tests.AppHost.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetCurrency;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies.Exceptions;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {

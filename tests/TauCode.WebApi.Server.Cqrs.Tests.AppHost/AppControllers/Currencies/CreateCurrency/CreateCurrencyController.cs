@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using TauCode.Cqrs.Commands;
 using TauCode.Cqrs.Queries;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Exceptions;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.CreateCurrency;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.GetCurrency;
 
@@ -20,7 +21,7 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.AppControllers.Currencies.Cre
             _queryRunner = queryRunner;
         }
 
-        [SwaggerOperation(Tags = new[] { "Currencies" })]
+        [SwaggerOperation("Create currency", Tags = new[] { "Currencies" })]
         [SwaggerResponse(StatusCodes.Status200OK, "Currency has been created")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad data for currency creation", typeof(ValidationErrorDto))]
         [SwaggerResponse(StatusCodes.Status409Conflict, "Failed to create currency")]

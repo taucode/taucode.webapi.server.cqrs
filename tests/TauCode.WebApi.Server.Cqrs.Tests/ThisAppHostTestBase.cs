@@ -5,7 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using TauCode.Extensions;
 using TauCode.Infrastructure.Time;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.DbMigrations;
+using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests
 {

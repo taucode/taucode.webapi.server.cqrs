@@ -18,11 +18,11 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.AppControllers.Currencies.Del
             _commandDispatcher = commandDispatcher;
         }
 
-        [SwaggerOperation(Tags = new[] { "Currencies" })]
-        [SwaggerResponse(StatusCodes.Status204NoContent, "Currency was deleted")]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Currency was not found")]
-        [SwaggerResponse(StatusCodes.Status409Conflict, "Currency is in use")]
-        [Route("api/currencies/{id}", Name = "DeleteCurrency")]
+        [SwaggerOperation("Delete currency", "Deletes a currency.", Tags = new[] { "Currencies" })]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Currency was deleted.")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Currency was not found.")]
+        [SwaggerResponse(StatusCodes.Status409Conflict, "Currency is in use.")]
+        [Route("api/currencies/{id}")]
         [HttpDelete]
         public IActionResult DeleteCurrency([FromRoute]CurrencyId id)
         {
