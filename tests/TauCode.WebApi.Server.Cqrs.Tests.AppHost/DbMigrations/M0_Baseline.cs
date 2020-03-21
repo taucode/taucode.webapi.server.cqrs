@@ -18,9 +18,6 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.DbMigrations
                     .Unique("UX_currency_code")
                 .WithColumn("name")
                     .AsString()
-                    .NotNullable()
-                .WithColumn("is_available_to_users")
-                    .AsBoolean()
                     .NotNullable();
         }
     }

@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Resources\dbdata.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\dbdata.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="FluentNHibernate" Version="2.1.2" />
     <PackageReference Include="Inflector.NetStandard" Version="1.2.2" />
