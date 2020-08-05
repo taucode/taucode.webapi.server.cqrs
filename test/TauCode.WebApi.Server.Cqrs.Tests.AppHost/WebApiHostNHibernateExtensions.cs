@@ -8,6 +8,7 @@ using System;
 using System.Reflection;
 using TauCode.Domain.NHibernate.Conventions;
 
+// todo: rename. not "Host" but "Server"
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
 {
     public static class WebApiHostNHibernateExtensions

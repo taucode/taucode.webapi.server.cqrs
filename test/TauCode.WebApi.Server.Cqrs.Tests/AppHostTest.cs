@@ -63,7 +63,7 @@ namespace TauCode.WebApi.Server.Cqrs.Tests
             this.Factory = new TestFactory();
 
             this.HttpClient = this.Factory
-                .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot(@"tests\TauCode.WebApi.Server.Cqrs.Tests"))
+                .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot(@"test\TauCode.WebApi.Server.Cqrs.Tests"))
                 .CreateClient();
 
             var testServer = this.Factory.Factories.Single().Server;

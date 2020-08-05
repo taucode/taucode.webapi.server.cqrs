@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.WebApi.Server.Cqrs</id>
-    <version>1.0.0.0-dev-2020-03-22-00-01</version>
+    <version>1.0.1-dev-2020-08-05-23-01</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="file">LICENSE.txt</license>
-    <projectUrl>https://github.com/taucode/taucode.webapi.server</projectUrl>
+    <projectUrl>https://github.com/taucode/taucode.webapi.server.cqrs</projectUrl>
     <description>CQRS support for TauCode Web API server.</description>
     <releaseNotes>
       Initial version.
@@ -15,8 +15,8 @@
     <tags>taucode webapi server cqrs</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.1">
-        <dependency id="TauCode.Cqrs.Autofac" version="1.0.0-dev-2020-03-16-00-45" />
-        <dependency id="TauCode.WebApi.Server" version="1.0.0-dev-2020-03-21-18-46" />
+        <dependency id="TauCode.Cqrs.Autofac" version="1.0.1" />
+        <dependency id="TauCode.WebApi.Server" version="1.0.1" />
       </group>
     </dependencies>
   </metadata>

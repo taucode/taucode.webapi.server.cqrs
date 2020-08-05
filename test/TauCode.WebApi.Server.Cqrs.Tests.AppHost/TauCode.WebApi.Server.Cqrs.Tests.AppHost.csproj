@@ -16,13 +16,13 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="FluentNHibernate" Version="2.1.2" />
     <PackageReference Include="Inflector.NetStandard" Version="1.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.2.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.2.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.2.0" />
-    <PackageReference Include="TauCode.Cqrs.NHibernate" Version="1.0.0-dev-2020-03-16-19-34" />
-    <PackageReference Include="TauCode.Db.FluentMigrations" Version="1.0.0-dev-2020-03-16-19-57" />
-    <PackageReference Include="TauCode.Domain.NHibernate" Version="1.0.0-dev-2020-03-16-20-09" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.5.1" />
+    <PackageReference Include="TauCode.Cqrs.NHibernate" Version="1.0.1" />
+    <PackageReference Include="TauCode.Db.FluentMigrations" Version="1.0.1" />
+    <PackageReference Include="TauCode.Domain.NHibernate" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
