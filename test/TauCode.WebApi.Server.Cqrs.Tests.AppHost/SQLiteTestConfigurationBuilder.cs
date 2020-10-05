@@ -1,5 +1,5 @@
 ﻿using NHibernate.Cfg;
-using TauCode.Db;
+using TauCode.Db.SQLite;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
 {
@@ -7,7 +7,7 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
     {
         public SQLiteTestConfigurationBuilder()
         {
-            var tuple = DbUtils.CreateSQLiteConnectionString();
+            var tuple = SQLiteTools.CreateSQLiteDatabase();
             this.TempDbFilePath = tuple.Item1;
             this.ConnectionString = tuple.Item2;
 

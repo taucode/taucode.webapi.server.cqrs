@@ -7,7 +7,7 @@ using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies.Exceptions;
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class DeleteCurrencyControllerTest : AppHostTest
+    public class DeleteCurrencyControllerTest : AppHostTestLab
     {
         [Test]
         public void Delete_ExistingId_DeletesAndReturnsNoContentResultWithId()

@@ -10,6 +10,7 @@ using System.Data.SQLite;
 using TauCode.Cqrs.NHibernate;
 using TauCode.Db;
 using TauCode.Db.FluentMigrations;
+using TauCode.Db.SQLite;
 using TauCode.Domain.NHibernate.Types;
 using TauCode.Extensions;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.DbMigrations;
@@ -75,7 +76,7 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
 
                 var json = typeof(Startup).Assembly.GetResourceText(".dbdata.json", true);
 
-                var dbSerializer = DbUtils.GetUtilityFactory(DbProviderNames.SQLite).CreateDbSerializer(connection);
+                var dbSerializer = SQLiteUtilityFactory.Instance.CreateSerializer(connection, null);
                 dbSerializer.DeserializeDbData(json);
             }
 

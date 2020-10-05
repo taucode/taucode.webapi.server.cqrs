@@ -8,7 +8,7 @@ using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies.Exceptions;
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class GetCurrencyControllerTest : AppHostTest
+    public class GetCurrencyControllerTest : AppHostTestLab
     {
         [Test]
         [TestCase("code", "USD", Description = "Get by code")]
