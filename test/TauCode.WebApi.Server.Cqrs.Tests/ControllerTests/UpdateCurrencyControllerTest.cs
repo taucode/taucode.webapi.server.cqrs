@@ -11,7 +11,7 @@ using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies.Exceptions;
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class UpdateCurrencyControllerTest : AppHostTest
+    public class UpdateCurrencyControllerTest : AppHostTestLab
     {
         [Test]
         public void UpdateCurrency_ValidRequest_UpdatesCurrencyAndReturnsOkResultWithUpdatedCurrency()

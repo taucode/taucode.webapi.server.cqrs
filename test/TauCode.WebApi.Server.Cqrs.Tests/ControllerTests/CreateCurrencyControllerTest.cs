@@ -10,7 +10,7 @@ using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class CreateCurrencyControllerTest : AppHostTest
+    public class CreateCurrencyControllerTest : AppHostTestLab
     {
         [Test]
         public void CreateCurrency_ValidRequest_CreatesCurrencyAndReturnsCreatedResultWithCreatedCurrency()

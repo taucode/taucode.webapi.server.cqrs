@@ -4,21 +4,19 @@ using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using NUnit.Framework;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using TauCode.Db;
+using TauCode.Db.SQLite;
 using TauCode.Db.Testing;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost;
 
-// todo clean up
 namespace TauCode.WebApi.Server.Cqrs.Tests
 {
     [TestFixture]
-    public abstract class AppHostTest : DbTestBase
+    public abstract class AppHostTestLab : DbTestBase
     {
-        private string _connectionString;
-        private string _tempDbFilePath;
+        private SQLiteTestHelper _sqLiteTestHelper;
 
         protected TestFactory Factory { get; private set; }
         protected HttpClient HttpClient { get; private set; }
@@ -71,9 +69,8 @@ namespace TauCode.WebApi.Server.Cqrs.Tests
             var startup = (Startup)testServer.Services.GetService<IAutofacStartup>();
             this.Container = startup.AutofacContainer;
 
-            _connectionString = startup.SQLiteTestConfigurationBuilder.ConnectionString;
-            _tempDbFilePath = startup.SQLiteTestConfigurationBuilder.TempDbFilePath;
-
+            _sqLiteTestHelper = new SQLiteTestHelper();
+            
             base.OneTimeSetUpImpl();
         }
 
@@ -87,14 +84,8 @@ namespace TauCode.WebApi.Server.Cqrs.Tests
             this.HttpClient = null;
             this.Factory = null;
 
-            try
-            {
-                File.Delete(_tempDbFilePath);
-            }
-            catch
-            {
-                // ignore
-            }
+            _sqLiteTestHelper.Dispose();
+            _sqLiteTestHelper = null;
         }
 
         protected override void SetUpImpl()
@@ -124,8 +115,8 @@ namespace TauCode.WebApi.Server.Cqrs.Tests
             this.AssertLifetimeScope.Dispose();
         }
 
-        protected override string GetConnectionString() => _connectionString;
+        protected override string GetConnectionString() => _sqLiteTestHelper.ConnectionString;
 
-        protected override string GetDbProviderName() => DbProviderNames.SQLite;
+        protected override IDbUtilityFactory GetDbUtilityFactory() => SQLiteUtilityFactory.Instance;
     }
 }

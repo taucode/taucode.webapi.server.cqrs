@@ -7,7 +7,7 @@ using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 namespace TauCode.WebApi.Server.Cqrs.Tests.ControllerTests
 {
     [TestFixture]
-    public class GetAllCurrenciesControllerTest : AppHostTest
+    public class GetAllCurrenciesControllerTest : AppHostTestLab
     {
         [Test]
         public void GetAllCurrencies_NoArguments_ReturnsAllCurrencies()
