@@ -1,4 +1,4 @@
-﻿using TauCode.Cqrs.Commands;
+﻿using TauCode.Cqrs.Abstractions;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.UpdateCurrency
