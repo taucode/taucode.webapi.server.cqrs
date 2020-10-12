@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
-using TauCode.Extensions;
 using TauCode.Validation;
 using TauCode.WebApi.Server.Cqrs.Tests.AppHost.Domain.Currencies;
 
@@ -33,9 +33,17 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost.Core.Features.Currencies.Upda
 
         private CurrencyId GetCurrencyId()
         {
-            return this.Parameters.GetOrDefault("id") as CurrencyId;
+            return this.ParametersInternal.GetValueOrDefault("id") as CurrencyId;
         }
 
-        public IDictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
+        private Dictionary<string, object> ParametersInternal { get; set; } = new Dictionary<string, object>();
+
+        public IDictionary<string, object> Parameters
+        {
+            get => ParametersInternal;
+            set => ParametersInternal =
+                value as Dictionary<string, object> ??
+                throw new ArgumentException($"'{nameof(value)}' must be 'Dictionary<string, object>'.");
+        }
     }
 }
