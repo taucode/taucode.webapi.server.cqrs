@@ -6,15 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Data.SQLite;
-using TauCode.Cqrs.NHibernate;
-using TauCode.Db;
-using TauCode.Db.FluentMigrations;
-using TauCode.Db.SQLite;
-using TauCode.Domain.NHibernate.Types;
-using TauCode.Extensions;
-using TauCode.WebApi.Server.Cqrs.Tests.AppHost.DbMigrations;
+using System;
 
+// todo
 namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
 {
     public class Startup : IAutofacStartup
@@ -53,50 +47,52 @@ namespace TauCode.WebApi.Server.Cqrs.Tests.AppHost
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
-            var cqrsAssembly = typeof(Startup).Assembly;
+            throw new NotImplementedException();
 
-            this.SQLiteTestConfigurationBuilder = new SQLiteTestConfigurationBuilder();
-            var migrator = new FluentDbMigrator(
-                DbProviderNames.SQLite,
-                this.SQLiteTestConfigurationBuilder.ConnectionString, 
-                typeof(M0_Baseline).Assembly);
-            migrator.Migrate();
+            //var cqrsAssembly = typeof(Startup).Assembly;
 
-            using (var connection = new SQLiteConnection(this.SQLiteTestConfigurationBuilder.ConnectionString))
-            {
-                connection.Open();
-                connection.BoostSQLiteInsertions();
+            //this.SQLiteTestConfigurationBuilder = new SQLiteTestConfigurationBuilder();
+            //var migrator = new FluentDbMigrator(
+            //    DbProviderNames.SQLite,
+            //    this.SQLiteTestConfigurationBuilder.ConnectionString, 
+            //    typeof(M0_Baseline).Assembly);
+            //migrator.Migrate();
 
-                // todo: without following table drop, deserialization won't work due to VersionInfo table. consider adding filtering predicate to 'DeserializeDbData'. comment GUID: 9ed2372e-f5f0-4a03-8a9f-5deb2ff464a4 (see dbdata.json)
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "DROP TABLE VersionInfo";
-                    command.ExecuteNonQuery();
-                }
+            //using (var connection = new SQLiteConnection(this.SQLiteTestConfigurationBuilder.ConnectionString))
+            //{
+            //    connection.Open();
+            //    connection.BoostSQLiteInsertions();
 
-                var json = typeof(Startup).Assembly.GetResourceText(".dbdata.json", true);
+            //    // todo: without following table drop, deserialization won't work due to VersionInfo table. consider adding filtering predicate to 'DeserializeDbData'. comment GUID: 9ed2372e-f5f0-4a03-8a9f-5deb2ff464a4 (see dbdata.json)
+            //    using (var command = connection.CreateCommand())
+            //    {
+            //        command.CommandText = "DROP TABLE VersionInfo";
+            //        command.ExecuteNonQuery();
+            //    }
 
-                var dbSerializer = SQLiteUtilityFactory.Instance.CreateSerializer(connection, null);
-                dbSerializer.DeserializeDbData(json);
-            }
+            //    var json = typeof(Startup).Assembly.GetResourceText(".dbdata.json", true);
 
-            containerBuilder
-                .AddCqrs(cqrsAssembly, typeof(TransactionalCommandHandlerDecorator<>))
-                .AddNHibernate(
-                    this.SQLiteTestConfigurationBuilder.Configuration,
-                    typeof(Startup).Assembly,
-                    typeof(SQLiteIdUserType<>));
+            //    var dbSerializer = SQLiteUtilityFactory.Instance.CreateSerializer(connection, null);
+            //    dbSerializer.DeserializeDbData(json);
+            //}
 
-            containerBuilder
-                .RegisterAssemblyTypes(typeof(Startup).Assembly)
-                .Where(t => t.FullName.EndsWith("Repository"))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
+            //containerBuilder
+            //    .AddCqrs(cqrsAssembly, typeof(TransactionalCommandHandlerDecorator<>))
+            //    .AddNHibernate(
+            //        this.SQLiteTestConfigurationBuilder.Configuration,
+            //        typeof(Startup).Assembly,
+            //        typeof(SQLiteIdUserType<>));
 
-            containerBuilder
-                .RegisterInstance(this)
-                .As<IAutofacStartup>()
-                .SingleInstance();
+            //containerBuilder
+            //    .RegisterAssemblyTypes(typeof(Startup).Assembly)
+            //    .Where(t => t.FullName.EndsWith("Repository"))
+            //    .AsImplementedInterfaces()
+            //    .InstancePerLifetimeScope();
+
+            //containerBuilder
+            //    .RegisterInstance(this)
+            //    .As<IAutofacStartup>()
+            //    .SingleInstance();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

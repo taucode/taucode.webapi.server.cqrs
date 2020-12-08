@@ -1,22 +1,18 @@
 ﻿using Autofac;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using NUnit.Framework;
-using System.Globalization;
-using System.Linq;
+using System;
 using System.Net.Http;
 using TauCode.Db;
-using TauCode.Db.SQLite;
 using TauCode.Db.Testing;
-using TauCode.WebApi.Server.Cqrs.Tests.AppHost;
 
+// todo.
 namespace TauCode.WebApi.Server.Cqrs.Tests
 {
     [TestFixture]
     public abstract class AppHostTestLab : DbTestBase
     {
-        private SQLiteTestHelper _sqLiteTestHelper;
+        //private SQLiteTestHelper _sqLiteTestHelper;
 
         protected TestFactory Factory { get; private set; }
         protected HttpClient HttpClient { get; private set; }
@@ -56,36 +52,38 @@ namespace TauCode.WebApi.Server.Cqrs.Tests
         
         protected override void OneTimeSetUpImpl()
         {
-            Inflector.Inflector.SetDefaultCultureFunc = () => new CultureInfo("en-US");
+            throw new NotImplementedException();
+            //Inflector.Inflector.SetDefaultCultureFunc = () => new CultureInfo("en-US");
 
-            this.Factory = new TestFactory();
+            //this.Factory = new TestFactory();
 
-            this.HttpClient = this.Factory
-                .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot(@"test\TauCode.WebApi.Server.Cqrs.Tests"))
-                .CreateClient();
+            //this.HttpClient = this.Factory
+            //    .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot(@"test\TauCode.WebApi.Server.Cqrs.Tests"))
+            //    .CreateClient();
 
-            var testServer = this.Factory.Factories.Single().Server;
+            //var testServer = this.Factory.Factories.Single().Server;
 
-            var startup = (Startup)testServer.Services.GetService<IAutofacStartup>();
-            this.Container = startup.AutofacContainer;
+            //var startup = (Startup)testServer.Services.GetService<IAutofacStartup>();
+            //this.Container = startup.AutofacContainer;
 
-            _sqLiteTestHelper = new SQLiteTestHelper();
-            
-            base.OneTimeSetUpImpl();
+            //_sqLiteTestHelper = new SQLiteTestHelper();
+
+            //base.OneTimeSetUpImpl();
         }
 
         protected override void OneTimeTearDownImpl()
         {
-            base.OneTimeTearDownImpl();
+            throw new NotImplementedException();
+            //base.OneTimeTearDownImpl();
 
-            this.HttpClient.Dispose();
-            this.Factory.Dispose();
+            //this.HttpClient.Dispose();
+            //this.Factory.Dispose();
 
-            this.HttpClient = null;
-            this.Factory = null;
+            //this.HttpClient = null;
+            //this.Factory = null;
 
-            _sqLiteTestHelper.Dispose();
-            _sqLiteTestHelper = null;
+            //_sqLiteTestHelper.Dispose();
+            //_sqLiteTestHelper = null;
         }
 
         protected override void SetUpImpl()
@@ -115,8 +113,18 @@ namespace TauCode.WebApi.Server.Cqrs.Tests
             this.AssertLifetimeScope.Dispose();
         }
 
-        protected override string GetConnectionString() => _sqLiteTestHelper.ConnectionString;
+        protected override string GetConnectionString()
+        {
+            throw new NotImplementedException();
+        }
 
-        protected override IDbUtilityFactory GetDbUtilityFactory() => SQLiteUtilityFactory.Instance;
+        protected override IDbUtilityFactory GetDbUtilityFactory()
+        {
+            throw new NotImplementedException();
+        }
+
+        //protected override string GetConnectionString() => _sqLiteTestHelper.ConnectionString;
+
+        //protected override IDbUtilityFactory GetDbUtilityFactory() => SQLiteUtilityFactory.Instance;
     }
 }
